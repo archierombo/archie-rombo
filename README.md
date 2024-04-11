@@ -28,4 +28,4 @@ Use it to make something cool, have fun, and share what you've learned with othe
 
 Archie Rombo is based on Underscores http://underscores.me/, (C) 2012-2015 Automattic, Inc.
 
-To use the theme download and zip it then upload it to your WordPess Website under themes
+To use the theme download and zip it then upload it to your WordPress Website under themes
