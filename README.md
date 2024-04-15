@@ -1,3 +1,5 @@
+![alt Theme Screenshoot](https://github.com/archierombo/archie-rombo/blob/main/screenshot.png)
+
 Theme Name: Archie Rombo
 
 Version: 1.0
