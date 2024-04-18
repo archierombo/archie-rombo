@@ -12,8 +12,8 @@
 
 
 				<!-- pagination developer style-->
-				<?php //previous_posts_link();?>
-				<?php //next_posts_link();?>
+				<?php previous_posts_link();?>
+				<?php next_posts_link();?>
 
 
 
@@ -39,9 +39,7 @@
 			<!--pagination wordpress style-->
 
 
-<!-- pagination developer style-->
-				<?php previous_posts_link();?>
-				<?php next_posts_link();?>
+
 
 
 	</div>

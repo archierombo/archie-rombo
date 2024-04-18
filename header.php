@@ -58,8 +58,25 @@
         </li>
       </ul>
     </div>
+    <!-- Search Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form action="./" method="get"  class="d-flex form-floating search-form"  style="margin: 2rem;"> 
+  
+  <input type="text" class="form-control me-2 search-field" name="s" id="search" placeholder="Search..." value="<?php the_search_query(); ?>" />
+    <label id="search-label" for="search">Search...</label>
+  <button type="submit" class="btn btn-success search-submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+</form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+ <!-- Search Modal -->
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="box-shadow: 0 0 20px rgba(0,0,0,0.15);">
   <div class="container-fluid">
     <a class="navbar-brand" href="<?php echo get_home_url('/'); ?>">
     	<?php
@@ -88,7 +105,7 @@
 						'menu' => 'main-menu',
 						'container' => '',
 						'theme_location'=> 'main-menu',
-						'items_wrap' => '<ul id="" class="navbar-nav me-auto mb-2 mb-md-0" style="margin-left: auto !important;margin-right: auto !important;margin-top: 2rem;">%3$s</ul>'
+						'items_wrap' => '<ul id="" class="navbar-nav  mb-2 mb-md-0" style="margin-left: auto !important;float: right !important;">%3$s</ul>'
 					)
 				);
 				 ?>		

@@ -738,3 +738,14 @@ h1, h2, h3, h4, h5, h6 {
    width: 50%;
   }
 }
+
+
+
+.dropdown-menu.show {
+/*    display: contents;*/
+}
+.modal{
+/*  --bs-modal-padding: 0rem;*/
+  --bs-modal-width: 50%;
+  --bs-modal-border-radius: 0px;
+}
