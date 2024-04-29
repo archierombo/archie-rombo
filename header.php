@@ -105,7 +105,7 @@
 						'menu' => 'main-menu',
 						'container' => '',
 						'theme_location'=> 'main-menu',
-						'items_wrap' => '<ul id="" class="navbar-nav  mb-2 mb-md-0" style="margin-left: auto !important;float: right !important;">%3$s</ul>'
+						'items_wrap' => '<ul id="" class="navbar-nav nav  mb-2 mb-md-0" >%3$s</ul>'
 					)
 				);
 				 ?>		

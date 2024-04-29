@@ -1,7 +1,7 @@
 
     <?php get_header();?>
-    
-		<article class=" px-3 py-5 p-md-5">
+    <?php  add_theme_support( "title-tag" ); ?>
+		<article class=" px-3 py-5 p-md-4">
 			<?php
 		if(have_posts()){
 				while(have_posts()){

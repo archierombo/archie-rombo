@@ -15,7 +15,7 @@
 
 
         <!--  Search Button trigger modal -->
-           <i class="fa fa-search"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-right: 5rem;"></i>
+           <i class="fa fa-search"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-right: 6rem;margin-left: 2rem;"></i>
 
 
 

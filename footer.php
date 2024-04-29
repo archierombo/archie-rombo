@@ -6,10 +6,10 @@
  <?php if ( is_active_sidebar( 'footer-widget-1' ) && is_active_sidebar('footer-widget-2') && is_active_sidebar('footer-widget-3') && is_active_sidebar('footer-widget-4') ) : ?>
 <div class="container-fluid bg-light-subtle" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-3"><?php dynamic_sidebar('footer-widget-1'); ?></div>
-		<div class="col-sm-3"><?php dynamic_sidebar('footer-widget-2'); ?></div>
-		<div class="col-sm-3"><?php dynamic_sidebar('footer-widget-3'); ?></div>
-		<div class="col-sm-3"><?php dynamic_sidebar('footer-widget-4'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-1'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-2'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-3'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-4'); ?></div>
 	</div>
 </div>
 
@@ -18,9 +18,9 @@
 
 <div class="container-fluid " style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-1'); ?></div>
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-2'); ?></div>
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-3'); ?></div>
+		<div class="col-lg-4 col-sm-12"><?php dynamic_sidebar('footer-widget-1'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-2'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-3'); ?></div>
 		
 	</div>
 </div>
@@ -29,9 +29,9 @@
 
 <div class="container-fluid" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-2'); ?></div>
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-3'); ?></div>
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-4'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-2'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-3'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-4'); ?></div>
 		
 	</div>
 </div>
@@ -40,9 +40,9 @@
 
 <div class="container-fluid" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-1'); ?></div>
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-2'); ?></div>
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-4'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-1'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-2'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-4'); ?></div>
 		
 	</div>
 </div>
@@ -51,9 +51,9 @@
 
 <div class="container-fluid" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-1'); ?></div>
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-3'); ?></div>
-		<div class="col-sm-4"><?php dynamic_sidebar('footer-widget-4'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-1'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-3'); ?></div>
+		<div class="col-lg-3 col-sm-12"><?php dynamic_sidebar('footer-widget-4'); ?></div>
 		
 	</div>
 </div>
@@ -63,8 +63,8 @@
 
 <div class="container-fluid" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-1'); ?></div>
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-2'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-1'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-2'); ?></div>
 		
 		
 	</div>
@@ -76,8 +76,8 @@
 
 <div class="container-fluid" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-1'); ?></div>
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-3'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-1'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-3'); ?></div>
 		
 		
 	</div>
@@ -87,8 +87,8 @@
 
 <div class="container-fluid" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-1'); ?></div>
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-4'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-1'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-4'); ?></div>
 		
 		
 	</div>
@@ -98,8 +98,8 @@
 
 <div class="container-fluid" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-2'); ?></div>
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-3'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-2'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-3'); ?></div>
 		
 		
 	</div>
@@ -120,8 +120,8 @@
 
 <div class="container-fluid" style="padding-left: 1rem;padding-right: 1rem;padding-top: 2rem;padding-bottom: 2rem;">
 	<div class="row">
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-3'); ?></div>
-		<div class="col-sm-6"><?php dynamic_sidebar('footer-widget-4'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-3'); ?></div>
+		<div class="col-lg-6 col-sm-12"><?php dynamic_sidebar('footer-widget-4'); ?></div>
 		
 		
 	</div>
