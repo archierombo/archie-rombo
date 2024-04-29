@@ -758,7 +758,14 @@ h1, h2, h3, h4, h5, h6 {
   --bs-modal-width: 50%;
   --bs-modal-border-radius: 0px;
 }
-.current-menu-item,.current_page_item{
-  background-color: var(--link-color);
-/*  color: var(--link-color);*/
+
+.nav-link {
+ font-weight: bold;
+ color: #232324;
+}
+
+.navbar-nav .nav-link.active,.navbar-nav .nav-link:hover{
+   color: var(--link-color);
+   font-weight: bold;
+
 }

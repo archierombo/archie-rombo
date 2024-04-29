@@ -76,7 +76,7 @@
 </div>
  <!-- Search Modal -->
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="box-shadow: 0 0 20px rgba(0,0,0,0.15);">
+    <nav class="site-main-nav navbar navbar-expand-lg bg-body-tertiary fixed-top" style="box-shadow: 0 0 20px rgba(0,0,0,0.15);">
   <div class="container-fluid">
     <a class="navbar-brand" href="<?php echo get_home_url('/'); ?>">
     	<?php
@@ -93,21 +93,36 @@
 
 				?>
 				</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-   
+    </button> -->
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+    <div class="collapse navbar-collapse" id="main-menu">
       <?php
 				//adding menu to header file
-				wp_nav_menu(
-					array(
-						'menu' => 'main-menu',
-						'container' => '',
-						'theme_location'=> 'main-menu',
-						'items_wrap' => '<ul id="" class="navbar-nav nav  mb-2 mb-md-0" >%3$s</ul>'
-					)
-				);
+				// wp_nav_menu(
+				// 	array(
+				// 		'menu' => 'main-menu',
+				// 		'container' => '',
+				// 		'theme_location'=> 'main-menu',
+				// 		'items_wrap' => '<ul id="" class="navbar-nav nav  mb-2 mb-md-0">%3$s</ul>'
+				// 	)
+				// );
+
+      
+       wp_nav_menu(array(
+                'theme_location' => 'main-menu',
+                'container' => false,
+                'menu_class' => '',
+                'fallback_cb' => '__return_false',
+                'items_wrap' => '<ul id="%1$s" class="navbar-nav nav mb-2 mb-md-0 %2$s">%3$s</ul>',
+                'depth' => 2,
+                'walker' => new bootstrap_5_wp_nav_menu_walker()
+            ));
 				 ?>		
      
 
