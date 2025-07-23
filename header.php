@@ -23,7 +23,6 @@
         <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
       </symbol>
     </svg>
-
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
       <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
               id="bd-theme"
@@ -59,82 +58,115 @@
       </ul>
     </div>
     <!-- Search Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <form action="./" method="get"  class="d-flex form-floating search-form"  style="margin: 2rem;"> 
-  
-  <input type="text" class="form-control me-2 search-field" name="s" id="search" placeholder="Search..." value="<?php the_search_query(); ?>" />
-    <label id="search-label" for="search">Search...</label>
-  <button type="submit" class="btn btn-success search-submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-</form>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form action="./" method="get"  class="d-flex form-floating search-form"  style="margin: 2rem;"> 
+              <input type="text" class="form-control me-2 search-field" name="s" id="search" placeholder="Search..." value="<?php the_search_query(); ?>" />
+              <!-- <label id="search-label" for="search"></label> -->
+              <button type="submit" class="btn btn-success search-submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </form>
+          </div>
+        </div>
       </div>
-    
     </div>
-  </div>
-</div>
- <!-- Search Modal -->
-    <header>
-    <nav class="site-main-nav navbar navbar-expand-lg bg-body-tertiary fixed-top" style="box-shadow: 0 0 20px rgba(0,0,0,0.15);">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="<?php echo get_home_url('/'); ?>">
-    	<?php
-      $custom_logo_id = get_theme_mod( 'custom_logo' );
-      $logo = wp_get_attachment_image_src( $custom_logo_id  );
-				//Adding logo image to header file
-				if(function_exists('has_custom_logo')){ 
-         echo '<img src="' . esc_url( $logo[0] ) . '" alt="' . get_bloginfo( 'name' ) . '" title="'. get_bloginfo( 'name' ) . '" class="custom-logo">';
-				}else{ 
-       
-       echo '<h1>' . get_bloginfo('name') . '</h1>';
-         
-       }
+    <!-- Search Modal -->
+    <header class="fixed-top">
+      <div class="container-fluid top-bar 
+        <?php
+          if (is_user_logged_in()) {
+            echo 'top-bar-logged-in';
+          } else {
+            echo 'top-bar-not-logged-in';
+          }
+        ?>" 
+     ><!--Top bar-->
+        <div class="row">
+          <div class="col-sm-12 col-md-4"><!--theme_phone_number-->
+            <?php
+              $phone_number = get_option('theme_phone_number');
+              if ($phone_number) {
+                echo '<p style="margin-top: 0;margin-bottom: 0;"><span style="color: #b30;"><i class="fa fa-phone" aria-hidden="true"></i></span>&nbsp;&nbsp;&nbsp;<span style="color: #fff;">' . esc_html($phone_number) . '</span></p>';
+              }else{
+                echo '<span style="color: #fff;margin-top: 0;margin-bottom: 0;"><i class="fa fa-phone" aria-hidden="true"></i>+254-123-456-789</span>';
+              }
+            ?>
+          </div><!--theme_phone_number-->
+          <div class="col-sm-12 col-md-4"><!--theme_email-->
+            <?php
+              $email = get_option('theme_email');
+              if($theme_email){
+                echo '<p class="text-start" style="margin-top: 0;margin-bottom: 0;"><span style="color: #b30;"><i class="fa-duotone fa-regular fa-envelope"></i></span>&nbsp;&nbsp;&nbsp;<span style="color: #fff;">' . esc_html($theme_email) . '</span></p>';
+              }else{
+                echo '<p class="text-center" style="color: #fff;margin-top: 0;margin-bottom: 0;"><i class="fa-duotone fa-regular fa-envelope"></i>archierombo@gmail.com</p>';
+              }
+            ?>
+          </div><!--theme_email-->
+          <div class="col-sm-12 col-md-4 text-md-end" style="text-transform: uppercase;"><!--WordPress Login & Registeration Link-->
+            <?php
+              echo '<a style="text-decoration: none;color: #b30;" href="' . wp_login_url() . '">Login&nbsp;<i class="fa-sharp-duotone fa-regular fa-right-to-bracket"></i></a>';
+            ?>
+            <span class="sep">&nbsp; |&nbsp; </span>
+            <?php
+              echo '<a style="text-decoration: none;color: #fff;" href="' . wp_registration_url() . '">Sign Up&nbsp;<i class="fa-duotone fa-solid fa-user-plus"></i></a>';
+            ?>
+        </div><!--WordPress Login & Registeration Link-->
+      </div>
+    </div><!--Top bar-->
+    <nav class="site-main-nav navbar navbar-expand-lg bg-body-tertiary " style="box-shadow: 0 0 20px rgba(0,0,0,0.15);">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="<?php echo get_home_url('/'); ?>">
+      	   <?php
+            //$custom_logo_id = get_theme_mod( 'custom_logo' );
+            //$logo = wp_get_attachment_image_src( $custom_logo_id  );
+  				  //Adding logo image to header file
+  			    //if(function_exists('has_custom_logo')){ 
+            //echo '<img src="' . esc_url( $logo[0] ) . '" alt="' . get_bloginfo( 'name' ) . '" title="'. get_bloginfo( 'name' ) . '" class="custom-logo">';
+  			    //}else{ 
+            // echo '<h1>' . get_bloginfo('name') . '</h1>';
+            // }
+            // Get the custom logo URL from the options table
+            $custom_logo_url = get_option( 'archierombo_custom_logo' );
+            // Check if a custom logo is set
+            if ( $custom_logo_url ) {
+              echo '<img src="' . esc_url( $custom_logo_url ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" class="custom-logo" />';
+            } else {
+              // Fallback to the default logo or site title if no custom logo is set
+              echo '<h1>'. esc_html( get_bloginfo( 'name' ) ) . '</h1>';
+            }
 
-				?>
-				</a>
-    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
-     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+  	       ?>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-    
-    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-    <div class="collapse navbar-collapse" id="main-menu">
-      <?php
-				//adding menu to header file
-				// wp_nav_menu(
-				// 	array(
-				// 		'menu' => 'main-menu',
-				// 		'container' => '',
-				// 		'theme_location'=> 'main-menu',
-				// 		'items_wrap' => '<ul id="" class="navbar-nav nav  mb-2 mb-md-0">%3$s</ul>'
-				// 	)
-				// );
+        <div class="collapse navbar-collapse" id="main-menu">
+          <?php
+    				//adding menu to header file
+    				// wp_nav_menu(
+    				// 	array(
+    				// 		'menu' => 'main-menu',
+    				// 		'container' => '',
+    				// 		'theme_location'=> 'main-menu',
+    				// 		'items_wrap' => '<ul id="" class="navbar-nav nav  mb-2 mb-md-0">%3$s</ul>'
+    				// 	)
+    				// );
 
-      
-       wp_nav_menu(array(
-                'theme_location' => 'main-menu',
-                'container' => false,
-                'menu_class' => '',
-                'fallback_cb' => '__return_false',
-                'items_wrap' => '<ul id="%1$s" class="navbar-nav nav mb-2 mb-md-0 %2$s">%3$s</ul>',
-                'depth' => 2,
-                'walker' => new bootstrap_5_wp_nav_menu_walker()
-            ));
-				 ?>		
-     
-
-      <?php get_search_form();?>
+          
+           wp_nav_menu(array(
+                    'theme_location' => 'main-menu',
+                    'container' => false,
+                    'menu_class' => '',
+                    'fallback_cb' => '__return_false',
+                    'items_wrap' => '<ul id="%1$s" class="navbar-nav nav mb-2 mb-md-0 %2$s">%3$s</ul>',
+                    'depth' => 2,
+                    'walker' => new bootstrap_5_wp_nav_menu_walker()
+                ));
+    				 ?>		
+            <?php get_search_form();?>
     </div>
   </div>
 </nav>
-
-
 </header>
-
-
-
-
 <?php //the_title(); ?>

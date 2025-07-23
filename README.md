@@ -2,7 +2,7 @@
 
 Theme Name: Archie Rombo
 
-Version: 1.0
+Version: 1.2
 
 Description: Personal Website Theme
 
