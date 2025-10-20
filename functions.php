@@ -2,11 +2,11 @@
 /**
  * Archie-Rombo Theme Functions
  * 
- * Only works in WordPress 5.8 or later.
+ * Only works in WordPress 6.4 or later.
  */
 
 
-if ( version_compare( $GLOBALS['wp_version'], '5.8', '<' ) ) {
+if ( version_compare( $GLOBALS['wp_version'], '6.4', '<' ) ) {
 	
 	return;
 }
