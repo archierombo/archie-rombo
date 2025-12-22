@@ -116,8 +116,25 @@
 			</a>
 		</div>
 		<div class="col-md-4 col-sm-12 text-center" >
-			<i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;&nbsp;<i class="fa fa-twitter" aria-hidden="true"></i>&nbsp;&nbsp;
-			<i class="fa fa-instagram" aria-hidden="true"></i>&nbsp;&nbsp;<i class="fa fa-linkedin" aria-hidden="true"></i>
+			<?php 
+            $facebook_url = get_option('archie_rombo_facebook_url');
+            $twitter_url = get_option('archie_rombo_twitter_url');
+            $instagram_url = get_option('archie_rombo_instagram_url');
+            $linkedin_url = get_option('archie_rombo_linkedin_url');
+
+            if ( $facebook_url ) {
+                echo '<a href="' . esc_url($facebook_url) . '" target="_blank" style="margin-right: 10px; color: inherit;"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>';
+            }
+            if ( $twitter_url ) {
+                echo '<a href="' . esc_url($twitter_url) . '" target="_blank" style="margin-right: 10px; color: inherit;"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a>';
+            }
+            if ( $instagram_url ) {
+                echo '<a href="' . esc_url($instagram_url) . '" target="_blank" style="margin-right: 10px; color: inherit;"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>';
+            }
+            if ( $linkedin_url ) {
+                echo '<a href="' . esc_url($linkedin_url) . '" target="_blank" style="color: inherit;"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>';
+            }
+			?>
 		</div>
 		<div class="col-md-4 col-sm-12 text-end" >
 			<?php

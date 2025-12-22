@@ -14,8 +14,9 @@ if ( version_compare( $GLOBALS['wp_version'], '6.4', '<' ) ) {
 if ( ! function_exists( 'setup' ) ) :
 	function setup() {
 //Theme Options
+//Theme Options
 //adding custom logo support
-//add_theme_support('custom-logo',array('height' => 100,'width' => 400,'flex-height' => true,'flex-width'  => true,'header-text' => array( 'site-title', 'site-description' ),'unlink-homepage-logo' => true, ));
+add_theme_support('custom-logo',array('height' => 100,'width' => 400,'flex-height' => true,'flex-width'  => true,'header-text' => array( 'site-title', 'site-description' ),'unlink-homepage-logo' => true, ));
 
 
 
@@ -246,9 +247,43 @@ function register_styles(){
 	wp_enqueue_style('fontawesome', get_template_directory_uri() . '/fontawesome-6.5.1-web-pro/css/all.min.css', array(), '6.5.1', 'all');
 	wp_enqueue_style('animate', get_template_directory_uri() . '/animate.css/animate.min.css', array(), '3.4.0', 'all');
 	wp_enqueue_style('component-css',get_template_directory_uri().'/css/component.css' ,array(),'1.0.0','all');
+	// Dashboard Styles
 	wp_enqueue_style('archie-rombo-style', get_template_directory_uri() . '/style.css', array(), '1.0.0', 'all');	
 }
 add_action('wp_enqueue_scripts','register_styles');
+
+/**
+ * Generate Dynamic CSS for Theme Options.
+ */
+function archie_rombo_dynamic_css() {
+    $primary_color = get_option( 'archie_rombo_primary_color', '#33bbcc' );
+    
+    if ( $primary_color && $primary_color !== '#33bbcc' ) {
+        ?>
+        <style type="text/css">
+            :root {
+                --primary-color: <?php echo esc_html( $primary_color ); ?>;
+                --button-color: <?php echo esc_html( $primary_color ); ?>;
+                --link-color: <?php echo esc_html( $primary_color ); ?>;
+            }
+            .search-form .search-submit,
+            button, input[type="button"], input[type="reset"], input[type="submit"],
+            .pagination .current,
+            .more-link {
+                background-color: <?php echo esc_html( $primary_color ); ?>;
+                border-color: <?php echo esc_html( $primary_color ); ?>;
+            }
+            a,
+            .reply .comment-reply-link,
+            .logged-in-as a, .fn a, .comment-meta .commentmetadata, .comment-edit-link,
+            .widget ul li a {
+                color: <?php echo esc_html( $primary_color ); ?>;
+            }
+        </style>
+        <?php
+    }
+}
+add_action( 'wp_head', 'archie_rombo_dynamic_css' );
 
 
 /*
@@ -269,6 +304,7 @@ function register_scripts()
 	wp_register_script('popper', get_template_directory_uri() . '/js/popper.min.js', array(), '5.3.2', true);
 	wp_register_script('bootstrap', get_template_directory_uri() . '/js/bootstrap.bundle.min.js', array('jquery'), '5.3.2', true);
 	wp_register_script('lazyload', get_template_directory_uri() . '/js/lazyload.js', array(), ' 2.0.0-rc.2', true);
+	wp_register_script('searchscript', get_template_directory_uri() . '/js/search-script.js', array(), '', true);
 
 
 	
@@ -372,6 +408,16 @@ function my_footerwidgets(){
 			'after_title' => '</h3></div>',
 		)
 	);
+	register_sidebar(
+		array(
+			'name' => 'Footer Social',
+			'id' => 'footer-social',
+			'before_widget' => '<div class="widget widget_footer %2$s">',
+			'after_widget' => '</div>',
+			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
+			'after_title' => '</h3></div>',
+		)
+	);
 }
 add_action('widgets_init', 'my_footerwidgets');
 
@@ -437,32 +483,10 @@ function customize_partial_blogdescription() {
 
 
 
-//custom post type
-/**
- * Register a custom post type called "Portfolio".
- *
- * @see get_post_type_labels() for label keys.
- */
-// function wpdocs_codex_portfolio_init() {
-// 	$args = array(
-// 		'labels' => array(
-// 			'name' => 'Portfolios',
-// 			'singular_name' => 'portfolio',
-// 		),
-// 		'hierarchical' => true,
-// 		'public' => true,
-// 		'has_archive' => true,
-// 		'menu_icon' => 'dashicons-portfolio ',
-// 		'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
-// 		'rewrite' =>array()
 
-// 	);
 
-// 	register_post_type( 'portfolios', $args );
-// }
-
-// add_action( 'init', 'wpdocs_codex_portfolio_init' );
-
+// Include Theme Dashboard
+require get_template_directory() . '/includes/theme-dashboard.php';
 
 add_action( 'after_setup_theme', 'theme_functions' );
 function theme_functions() {
@@ -516,151 +540,3 @@ add_action( 'init', 'wpdocs_register_block_patterns' );
 
 
 
-
-// Hook to add the 'Theme Options' menu items
-add_action( 'admin_menu', 'archierombo_add_theme_menu' );
-
-
-//Theme Options main function
-function archierombo_add_theme_menu() {
-    // Add the main theme options menu
-    add_menu_page(
-        'Theme Options',        // Page title
-        'Theme Options',        // Menu title
-        'manage_options',       // Capability
-        'archierombo_theme_options',  // Menu slug
-        'archierombo_theme_options_page', // Function to display the page content
-        'dashicons-admin-generic', // Icon (optional)
-        61                      // Position in the menu
-    );
-
-    // Add a submenu for Custom Logo under the Theme Options menu
-    add_submenu_page(
-        'archierombo_theme_options',  // Parent slug (matches the slug of the main menu)
-        'Custom Logo',                // Page title
-        'Custom Logo',                // Menu title
-        'manage_options',             // Capability
-        'archierombo_custom_logo',    // Submenu slug
-        'archierombo_custom_logo_page'	// Function to display the page content
-
-        
-    );
-}
-
-/**
- * Function to display the content of the main theme options page.
- */
-function archierombo_theme_options_page() {
-    echo '<div class="wrap">';
-    echo '<h1 style="text-align:center">Theme Options</h1>';
-    echo '<table  style="border:2px solid #495057;margin-left:auto;margin-right:auto;width:80%;">
-  <thead>
-   
-  </thead>
-  <tbody>
-    <tr>
-      
-      <td>Logo Options</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>';
-}
-
-/**
- * Function to display the content of the "Custom Logo" submenu page.
- */
-function archierombo_custom_logo_page() {
-    echo '<div class="wrap">';
-    echo '<h1>Custom Logo Settings</h1>';
-
-    // Enqueue the WordPress media uploader scripts
-    wp_enqueue_media();
-
-    // Get the currently saved logo
-    $custom_logo = get_option('archierombo_custom_logo');
-
-    echo '<form method="post" action="options.php">';
-    // Output security fields for the registered setting "archierombo_options"
-    settings_fields( 'archierombo_options' );
-    echo '<table class="form-table">';
-    echo '<tr valign="top">';
-    echo '<th scope="row">Select Custom Logo</th>';
-    echo '<td>';
-    echo '<input type="button" class="button button-secondary" id="upload_logo_button" value="Select or Upload Logo" />';
-    echo '<input type="hidden" id="custom_logo" name="archierombo_custom_logo" value="' . esc_attr( $custom_logo ) . '" />';
-    if ( $custom_logo ) {
-        echo '<img id="logo_preview" src="' . esc_url( $custom_logo ) . '" alt="Custom Logo" style="max-width: 300px; display:block; margin-top:10px;" />';
-    } else {
-        echo '<img id="logo_preview" src="" style="max-width: 300px; display:none; margin-top:10px;" />';
-    }
-    echo '</td>';
-    echo '</tr>';
-    echo '</table>';
-    submit_button('Save Logo');
-    echo '</form>';
-
-    
-    ?>
-    <style type="text/css">
-    	table {
-    caption-side: bottom;
-    border-collapse: collapse;
-}
-    </style>
-    <script type="text/javascript">
-    	// JavaScript to handle the media uploader
-    jQuery(document).ready(function($){
-        var mediaUploader;
-
-        $('#upload_logo_button').click(function(e) {
-            e.preventDefault();
-
-            // If the uploader object has already been created, reopen the dialog
-            if (mediaUploader) {
-                mediaUploader.open();
-                return;
-            }
-
-            // Extend the wp.media object
-            mediaUploader = wp.media.frames.file_frame = wp.media({
-                title: 'Choose Logo',
-                button: {
-                    text: 'Choose Logo'
-                },
-                multiple: false
-            });
-
-            // When a file is selected, grab the URL and set it as the value of the input field
-            mediaUploader.on('select', function() {
-                var attachment = mediaUploader.state().get('selection').first().toJSON();
-                $('#custom_logo').val(attachment.url);
-                $('#logo_preview').attr('src', attachment.url).show();
-            });
-
-            // Open the uploader dialog
-            mediaUploader.open();
-        });
-    });
-    </script>
-    <?php
-}
-
-// Register the setting for the custom logo
-add_action( 'admin_init', 'archierombo_register_custom_logo_setting' );
-
-function archierombo_register_custom_logo_setting() {
-    register_setting( 'archierombo_options', 'archierombo_custom_logo' );
-}

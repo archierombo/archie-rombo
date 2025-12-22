@@ -72,7 +72,7 @@
       </div>
     </div>
     <!-- Search Modal -->
-    <header class="fixed-top">
+    <header class="<?php echo get_option('archie_rombo_fixed_header') ? 'fixed-top' : ''; ?>">
       <div class="container-fluid top-bar 
         <?php
           if (is_user_logged_in()) {
@@ -118,22 +118,8 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="<?php echo get_home_url('/'); ?>">
       	   <?php
-            //$custom_logo_id = get_theme_mod( 'custom_logo' );
-            //$logo = wp_get_attachment_image_src( $custom_logo_id  );
-  				  //Adding logo image to header file
-  			    //if(function_exists('has_custom_logo')){ 
-            //echo '<img src="' . esc_url( $logo[0] ) . '" alt="' . get_bloginfo( 'name' ) . '" title="'. get_bloginfo( 'name' ) . '" class="custom-logo">';
-  			    //}else{ 
-            // echo '<h1>' . get_bloginfo('name') . '</h1>';
-            // }
-            // Get the custom logo URL from the options table
-            $custom_logo_url = get_option( 'archierombo_custom_logo' );
-            // Check if a custom logo is set
-            if ( $custom_logo_url ) {
-              echo '<img src="' . esc_url( $custom_logo_url ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" class="custom-logo" />';
-            } else {
-              // Fallback to the default logo or site title if no custom logo is set
-              echo '<h1>'. esc_html( get_bloginfo( 'name' ) ) . '</h1>';
+            if ( function_exists( 'the_custom_logo' ) ) {
+                the_custom_logo();
             }
 
   	       ?>
