@@ -57,6 +57,69 @@
         </li>
       </ul>
     </div>
+    <script>
+      (function() {
+        const prefersDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const getStored = () => localStorage.getItem('theme');
+        const store = (theme) => localStorage.setItem('theme', theme);
+        const resolve = (theme) => theme === 'auto' ? (prefersDark() ? 'dark' : 'light') : theme;
+
+        const applyActive = (theme) => {
+          const buttons = document.querySelectorAll('[data-bs-theme-value]');
+          const activeIcon = document.querySelector('.theme-icon-active use');
+          const themeText = document.querySelector('#bd-theme-text');
+          const current = Array.from(buttons).find(btn => btn.getAttribute('data-bs-theme-value') === theme);
+
+          buttons.forEach(btn => {
+            btn.classList.toggle('active', btn === current);
+            btn.setAttribute('aria-pressed', btn === current ? 'true' : 'false');
+          });
+
+          if (current && activeIcon) {
+            const useEl = current.querySelector('svg use');
+            if (useEl) {
+              activeIcon.setAttribute('href', useEl.getAttribute('href'));
+            }
+          }
+
+          if (current && themeText) {
+            document.getElementById('bd-theme').setAttribute('aria-label', `${themeText.textContent} (${theme})`);
+          }
+        };
+
+        const setTheme = (theme) => {
+          const value = resolve(theme);
+          document.documentElement.setAttribute('data-bs-theme', value);
+          applyActive(theme);
+        };
+
+        const init = () => {
+          const initial = getStored() || 'auto';
+          setTheme(initial);
+
+          document.querySelectorAll('[data-bs-theme-value]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const theme = btn.getAttribute('data-bs-theme-value') || 'auto';
+              store(theme);
+              setTheme(theme);
+            });
+          });
+
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            const stored = getStored();
+            if (stored === 'auto' || !stored) {
+              setTheme('auto');
+            }
+          });
+        };
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
     <!-- Search Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -140,15 +203,17 @@
     				// );
 
           
-           wp_nav_menu(array(
-                    'theme_location' => 'main-menu',
-                    'container' => false,
-                    'menu_class' => '',
-                    'fallback_cb' => '__return_false',
-                    'items_wrap' => '<ul id="%1$s" class="navbar-nav nav mb-2 mb-md-0 %2$s">%3$s</ul>',
-                    'depth' => 2,
-                    'walker' => new bootstrap_5_wp_nav_menu_walker()
-                ));
+           wp_nav_menu(
+				array(
+					'theme_location' => 'main-menu',
+					'container'      => false,
+					'menu_class'     => '',
+					'fallback_cb'    => '__return_false',
+					'items_wrap'     => '<ul id="%1$s" class="navbar-nav nav mb-2 mb-md-0 %2$s">%3$s</ul>',
+					'depth'          => 2,
+					'walker'         => new Archie_Rombo_Bootstrap_Nav_Walker(),
+				)
+			);
     				 ?>		
             <?php get_search_form();?>
     </div>

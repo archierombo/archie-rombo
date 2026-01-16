@@ -64,7 +64,7 @@
     }
   })
 
-  window.addEventListener('DOMContentLoaded', () => {
+  const init = () => {
     showActiveTheme(getPreferredTheme())
 
     document.querySelectorAll('[data-bs-theme-value]')
@@ -76,5 +76,11 @@
           showActiveTheme(theme, true)
         })
       })
-  })
+  }
+
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', init)
+  } else {
+    init()
+  }
 })()
