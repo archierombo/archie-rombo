@@ -8,7 +8,7 @@
   </head>
   <body <?php body_class(  ); ?> >
     <?php wp_body_open(); ?>
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
       </symbol>
@@ -23,103 +23,6 @@
         <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
       </symbol>
     </svg>
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-              id="bd-theme"
-              type="button"
-              aria-expanded="false"
-              data-bs-toggle="dropdown"
-              aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
-            Auto
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
-    </div>
-    <script>
-      (function() {
-        const prefersDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const getStored = () => localStorage.getItem('theme');
-        const store = (theme) => localStorage.setItem('theme', theme);
-        const resolve = (theme) => theme === 'auto' ? (prefersDark() ? 'dark' : 'light') : theme;
-
-        const applyActive = (theme) => {
-          const buttons = document.querySelectorAll('[data-bs-theme-value]');
-          const activeIcon = document.querySelector('.theme-icon-active use');
-          const themeText = document.querySelector('#bd-theme-text');
-          const current = Array.from(buttons).find(btn => btn.getAttribute('data-bs-theme-value') === theme);
-
-          buttons.forEach(btn => {
-            btn.classList.toggle('active', btn === current);
-            btn.setAttribute('aria-pressed', btn === current ? 'true' : 'false');
-          });
-
-          if (current && activeIcon) {
-            const useEl = current.querySelector('svg use');
-            if (useEl) {
-              activeIcon.setAttribute('href', useEl.getAttribute('href'));
-            }
-          }
-
-          if (current && themeText) {
-            document.getElementById('bd-theme').setAttribute('aria-label', `${themeText.textContent} (${theme})`);
-          }
-        };
-
-        const setTheme = (theme) => {
-          const value = resolve(theme);
-          document.documentElement.setAttribute('data-bs-theme', value);
-          applyActive(theme);
-        };
-
-        const init = () => {
-          const initial = getStored() || 'auto';
-          setTheme(initial);
-
-          document.querySelectorAll('[data-bs-theme-value]').forEach(btn => {
-            btn.addEventListener('click', () => {
-              const theme = btn.getAttribute('data-bs-theme-value') || 'auto';
-              store(theme);
-              setTheme(theme);
-            });
-          });
-
-          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            const stored = getStored();
-            if (stored === 'auto' || !stored) {
-              setTheme('auto');
-            }
-          });
-        };
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', init);
-        } else {
-          init();
-        }
-      })();
-    </script>
     <!-- Search Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -127,7 +30,6 @@
           <div class="modal-body">
             <form action="./" method="get"  class="d-flex form-floating search-form"  style="margin: 2rem;"> 
               <input type="text" class="form-control me-2 search-field" name="s" id="search" placeholder="Search..." value="<?php the_search_query(); ?>" />
-              <!-- <label id="search-label" for="search"></label> -->
               <button type="submit" class="btn btn-success search-submit"><i class="fa fa-search" aria-hidden="true"></i></button>
             </form>
           </div>
@@ -158,7 +60,7 @@
           </div><!--theme_phone_number-->
           <div class="col-sm-12 col-md-4"><!--theme_email-->
             <?php
-              $email = get_option('theme_email');
+              $theme_email = get_option('theme_email');
               if($theme_email){
                 echo '<p class="text-start" style="margin-top: 0;margin-bottom: 0;"><span style="color: #b30;"><i class="fa-duotone fa-regular fa-envelope"></i></span>&nbsp;&nbsp;&nbsp;<span style="color: #fff;">' . esc_html($theme_email) . '</span></p>';
               }else{
@@ -192,30 +94,56 @@
         </button>
         <div class="collapse navbar-collapse" id="main-menu">
           <?php
-    				//adding menu to header file
-    				// wp_nav_menu(
-    				// 	array(
-    				// 		'menu' => 'main-menu',
-    				// 		'container' => '',
-    				// 		'theme_location'=> 'main-menu',
-    				// 		'items_wrap' => '<ul id="" class="navbar-nav nav  mb-2 mb-md-0">%3$s</ul>'
-    				// 	)
-    				// );
-
-          
            wp_nav_menu(
 				array(
 					'theme_location' => 'main-menu',
 					'container'      => false,
 					'menu_class'     => '',
 					'fallback_cb'    => '__return_false',
-					'items_wrap'     => '<ul id="%1$s" class="navbar-nav nav mb-2 mb-md-0 %2$s">%3$s</ul>',
+					'items_wrap'     => '<ul id="%1$s" class="navbar-nav nav mb-2 mb-md-0 me-auto %2$s">%3$s</ul>',
 					'depth'          => 2,
 					'walker'         => new Archie_Rombo_Bootstrap_Nav_Walker(),
 				)
 			);
     				 ?>		
-            <?php get_search_form();?>
+            <div class="d-flex align-items-center">
+                <?php get_search_form();?>
+                
+                <div class="dropdown ms-3 bd-mode-toggle">
+                  <button class="btn btn-link nav-link py-2 dropdown-toggle d-flex align-items-center"
+                          id="bd-theme"
+                          type="button"
+                          aria-expanded="false"
+                          data-bs-toggle="dropdown"
+                          aria-label="Toggle theme (auto)">
+                    <svg class="bi my-1 theme-icon-active" width="1.2em" height="1.2em"><use href="#circle-half"></use></svg>
+                    <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+                    <li>
+                      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                        <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+                        Light
+                        <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                        <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+                        Dark
+                        <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+                        <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
+                        Auto
+                        <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+            </div>
     </div>
   </div>
 </nav>

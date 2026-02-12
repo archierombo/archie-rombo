@@ -280,7 +280,7 @@ function archie_rombo_register_scripts() {
 	wp_register_script( 'uisearch', get_template_directory_uri() . '/js/uisearch.js', array(), '', true );
 	wp_enqueue_script( 'jquery' );
 	wp_register_script( 'color-modes', get_template_directory_uri() . '/js/color-modes.js', array(), '5.3.2', false ); // Load in head
-	wp_register_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.bundle.min.js', array(), '5.3.2', true ); // BS5 doesn't depend on jQuery
+	wp_register_script( 'bootstrap-bundle', get_template_directory_uri() . '/js/bootstrap.bundle.min.js', array(), '5.3.2', true ); // BS5 doesn't depend on jQuery
 	wp_register_script( 'lazyload', get_template_directory_uri() . '/js/lazyload.js', array(), '2.0.0-rc.2', true );
 	wp_register_script( 'searchscript', get_template_directory_uri() . '/js/search-script.js', array(), '', true );
 
@@ -288,7 +288,7 @@ function archie_rombo_register_scripts() {
 	wp_enqueue_script( 'classie' );
 	wp_enqueue_script( 'uisearch' );
 	wp_enqueue_script( 'color-modes' );
-	wp_enqueue_script( 'bootstrap' );
+	wp_enqueue_script( 'bootstrap-bundle' );
 	wp_enqueue_script( 'lazyload' );
 	wp_enqueue_script( 'searchscript' );
 

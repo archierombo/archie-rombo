@@ -182,16 +182,35 @@ font-style: bold;
   --title-line-height: 1.4;
 }
 
+[data-bs-theme="dark"] {
+  --page-background-color: #1a1c1e;
+  --text-color: #e2e3e4;
+  --medium-text-color: rgba(255, 255, 255, 0.75);
+  --light-text-color: rgba(255, 255, 255, 0.5);
+  --dark-gray-color: #f0f1f2;
+  --light-gray-color: #2a2d30;
+  --site-title-color: #ffffff;
+  --navi-color: #ffffff;
+  --navi-hover-color: rgba(255, 255, 255, 0.7);
+  --title-color: #ffffff;
+  --widget-title-color: #ffffff;
+  --footer-text-color: #e2e3e4;
+  --footer-text-hover-color: #ffffff;
+  --light-border-color: rgba(255, 255, 255, 0.1);
+  --medium-border-color: rgba(255, 255, 255, 0.2);
+  --dark-border-color: rgba(255, 255, 255, 0.3);
+  --link-hover-color: #ffffff;
+  --button-hover-color: #ffffff;
+  --navi-submenu-color: #2a2d30;
+}
+
 body {
-  color: #303030;
-  color: rgb(var(--bs-tertiary-color-rgb));
+  color: var(--text-color);
+  background-color: var(--page-background-color);
   font-size: 17px;
   font-size: 1.0625rem;
-  font-family: "Titillium Web", arial, helvetica, sans-serif;
   font-family: var(--text-font);
-  line-height: 1.75;
   line-height: var(--text-line-height);
-  /* margin-top: 14em; */
 }
 
 #search-label {
