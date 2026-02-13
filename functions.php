@@ -238,30 +238,277 @@ function archie_rombo_dynamic_css() {
 	$primary_color = get_option( 'archie_rombo_primary_color', '#33bbcc' );
 	$primary_color = sanitize_hex_color( $primary_color ) ?: '#33bbcc';
 
-	if ( $primary_color && $primary_color !== '#33bbcc' ) {
-		?>
-		<style type="text/css">
-			:root {
-				--primary-color: <?php echo esc_attr( $primary_color ); ?>;
-				--button-color: <?php echo esc_attr( $primary_color ); ?>;
-				--link-color: <?php echo esc_attr( $primary_color ); ?>;
+	$body_size = get_option( 'archie_rombo_body_font_size', 17 );
+	$title_size = get_option( 'archie_rombo_heading_font_size', 36 );
+	$body_font = get_option( 'archie_rombo_body_font_family', 'TitilliumWeb' );
+	$title_font = get_option( 'archie_rombo_heading_font_family', 'Amaranth' );
+
+	$body_lh = get_option( 'archie_rombo_body_line_height', '1.75' );
+	$title_lh = get_option( 'archie_rombo_heading_line_height', '1.4' );
+	$body_weight = get_option( 'archie_rombo_body_font_weight', 'normal' );
+	$title_weight = get_option( 'archie_rombo_heading_font_weight', 'bold' );
+	$title_transform = get_option( 'archie_rombo_heading_transform', 'none' );
+	$body_ls = get_option( 'archie_rombo_body_letter_spacing', '0' );
+	$title_ls = get_option( 'archie_rombo_heading_letter_spacing', '0' );
+
+	$heading_color = get_option( 'archie_rombo_heading_color', '' );
+	$heading_color = sanitize_hex_color($heading_color);
+
+	$btn_radius = get_option( 'archie_rombo_button_radius', 4 );
+	$btn_padding_v = get_option( 'archie_rombo_button_padding_v', 10 );
+	$btn_padding_h = get_option( 'archie_rombo_button_padding_h', 20 );
+
+	$overlay_color = get_option( 'archie_rombo_header_overlay_color', '#000000' );
+	$overlay_opacity = get_option( 'archie_rombo_header_overlay_opacity', '0.5' );
+	$social_style = get_option( 'archie_rombo_social_icon_style', 'none' );
+	$social_color = get_option( 'archie_rombo_social_icon_color', '' );
+
+	$navbar_height = get_option( 'archie_rombo_navbar_height', 80 );
+	$navbar_shrink = get_option( 'archie_rombo_navbar_shrink', 0 );
+	$hero_padding = get_option( 'archie_rombo_hero_padding', 100 );
+	$back_to_top   = get_option( 'archie_rombo_back_to_top', 1 );
+	$mobile_topbar_hide = get_option( 'archie_rombo_mobile_topbar_hide', 0 );
+
+	$font_stacks = array(
+		'TitilliumWeb' => '"TitilliumWeb", arial, helvetica, sans-serif',
+		'Amaranth'     => '"Amaranth", arial, helvetica, sans-serif',
+		'Roboto'       => '"Roboto", arial, helvetica, sans-serif',
+		'Arial'        => 'Arial, Helvetica, sans-serif',
+		'Georgia'      => 'Georgia, "Times New Roman", serif'
+	);
+
+	$body_stack = isset($font_stacks[$body_font]) ? $font_stacks[$body_font] : $font_stacks['TitilliumWeb'];
+	$title_stack = isset($font_stacks[$title_font]) ? $font_stacks[$title_font] : $font_stacks['Amaranth'];
+
+	?>
+	<style type="text/css">
+		:root {
+			--primary-color: <?php echo esc_attr( $primary_color ); ?>;
+			--button-color: <?php echo esc_attr( $primary_color ); ?>;
+			--link-color: <?php echo esc_attr( $primary_color ); ?>;
+			
+			--text-font: <?php echo $body_stack; ?>;
+			--title-font: <?php echo $title_stack; ?>;
+			--navi-font: <?php echo $body_stack; ?>;
+			--widget-title-font: <?php echo $title_stack; ?>;
+
+			--text-line-height: <?php echo esc_attr($body_lh); ?>;
+			--title-line-height: <?php echo esc_attr($title_lh); ?>;
+			--title-font-weight: <?php echo esc_attr($title_weight); ?>;
+			--title-text-transform: <?php echo esc_attr($title_transform); ?>;
+			
+			--text-letter-spacing: <?php echo esc_attr($body_ls); ?>px;
+			--title-letter-spacing: <?php echo esc_attr($title_ls); ?>px;
+
+			--button-radius: <?php echo absint($btn_radius); ?>px;
+			--button-padding-v: <?php echo absint($btn_padding_v); ?>px;
+			--button-padding-h: <?php echo absint($btn_padding_h); ?>px;
+
+			--header-overlay-color: <?php echo esc_attr($overlay_color); ?>;
+			--header-overlay-opacity: <?php echo esc_attr($overlay_opacity); ?>;
+			--navbar-height: <?php echo absint($navbar_height); ?>px;
+			--hero-padding: <?php echo absint($hero_padding); ?>px;
+		}
+
+		body {
+			font-size: <?php echo absint($body_size); ?>px;
+			font-weight: <?php echo esc_attr($body_weight); ?>;
+			letter-spacing: var(--text-letter-spacing);
+		}
+
+		.page-title, .entry-title, h1, h2, h3, h4, h5, h6 {
+			font-size: <?php echo absint($title_size); ?>px;
+			letter-spacing: var(--title-letter-spacing);
+			<?php if ($heading_color) : ?>
+			color: <?php echo esc_attr($heading_color); ?>;
+			<?php endif; ?>
+		}
+
+		.search-form .search-submit,
+		button, .btn, input[type="button"], input[type="reset"], input[type="submit"],
+		.more-link {
+			border-radius: var(--button-radius);
+			padding: var(--button-padding-v) var(--button-padding-h);
+		}
+
+		/* Hero Section Styling */
+		.hero-section {
+			position: relative;
+			background-size: cover;
+			background-position: center;
+			padding: var(--hero-padding) 0;
+			min-height: 300px;
+			display: flex;
+			align-items: center;
+			margin-bottom: 2rem;
+		}
+		.hero-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: var(--header-overlay-color);
+			opacity: var(--header-overlay-opacity);
+		}
+		.hero-title {
+			font-family: var(--title-font);
+			text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+		}
+
+		/* Navbar Shrink */
+		<?php if ($navbar_shrink) : ?>
+		.site-main-nav.is-sticky {
+			min-height: calc(var(--navbar-height) * 0.75) !important;
+			transition: all 0.3s ease;
+		}
+		.site-main-nav.is-sticky .navbar-brand img {
+			max-height: calc(var(--navbar-height) * 0.75 - 15px) !important;
+		}
+		<?php endif; ?>
+
+		/* Mobile Top Bar Optimization */
+		<?php if ($mobile_topbar_hide) : ?>
+		@media (max-width: 767px) {
+			.top-bar {
+				display: none !important;
 			}
-			.search-form .search-submit,
-			button, input[type="button"], input[type="reset"], input[type="submit"],
-			.pagination .current,
-			.more-link {
-				background-color: <?php echo esc_attr( $primary_color ); ?>;
-				border-color: <?php echo esc_attr( $primary_color ); ?>;
+			header.is-transparent {
+				position: relative !important;
 			}
-			a,
-			.reply .comment-reply-link,
-			.logged-in-as a, .fn a, .comment-meta .commentmetadata, .comment-edit-link,
-			.widget ul li a {
-				color: <?php echo esc_attr( $primary_color ); ?>;
-			}
-		</style>
-		<?php
-	}
+		}
+		<?php endif; ?>
+
+		/* Social Icons Styling */
+		.footer .social-link {
+			text-decoration: none !important;
+			color: inherit;
+		}
+		.footer .fa-brands {
+			<?php if ($social_color) : ?>
+			color: <?php echo esc_attr($social_color); ?> !important;
+			<?php endif; ?>
+			
+			<?php if ($social_style === 'square' || $social_style === 'round') : ?>
+			background-color: var(--primary-color);
+			color: #fff !important;
+			width: 40px;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			display: inline-block;
+			margin: 0 5px;
+			transition: all 0.3s ease;
+			<?php else : ?>
+			margin: 0 10px;
+			transition: all 0.3s ease;
+			<?php endif; ?>
+
+			<?php if ($social_style === 'round') : ?>
+			border-radius: 50%;
+			<?php elseif ($social_style === 'square') : ?>
+			border-radius: 4px;
+			<?php endif; ?>
+		}
+		.footer .social-link:hover .fa-brands {
+			transform: translateY(-3px);
+			<?php if ($social_style === 'square' || $social_style === 'round') : ?>
+			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+			<?php endif; ?>
+		}
+
+		<?php if ( $primary_color && $primary_color !== '#33bbcc' ) : ?>
+		.search-form .search-submit,
+		button, .btn, input[type="button"], input[type="reset"], input[type="submit"],
+		.pagination .current,
+		.more-link {
+			background-color: <?php echo esc_attr( $primary_color ); ?>;
+			border-color: <?php echo esc_attr( $primary_color ); ?>;
+		}
+		a,
+		.reply .comment-reply-link,
+		.logged-in-as a, .fn a, .comment-meta .commentmetadata, .comment-edit-link,
+		.widget ul li a {
+			color: <?php echo esc_attr( $primary_color ); ?>;
+		}
+		<?php endif; ?>
+
+		/* Navbar Height */
+		.site-main-nav {
+			min-height: var(--navbar-height);
+		}
+		.site-main-nav .navbar-brand img {
+			max-height: calc(var(--navbar-height) - 20px);
+		}
+
+		/* Back to Top Styling */
+		#back-to-top {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			width: 45px;
+			height: 45px;
+			background-color: var(--primary-color);
+			color: #fff;
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			display: none;
+			z-index: 1000;
+			box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+			transition: all 0.3s ease;
+		}
+		#back-to-top:hover {
+			background-color: var(--secondary-color);
+			transform: translateY(-5px);
+		}
+
+		/* Transparent Header Styles */
+		header.is-transparent {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: 1050;
+		}
+		header.is-transparent .top-bar,
+		header.is-transparent .site-main-nav {
+			background-color: transparent !important;
+			box-shadow: none !important;
+		}
+		header.is-transparent .site-main-nav .nav-link,
+		header.is-transparent .site-main-nav .navbar-brand,
+		header.is-transparent .top-bar p,
+		header.is-transparent .top-bar a,
+		header.is-transparent .top-bar span {
+			color: #ffffff !important;
+		}
+		header.is-transparent .site-main-nav .nav-link:hover {
+			color: rgba(255,255,255,0.8) !important;
+		}
+		header.is-transparent .navbar-toggler {
+			border-color: rgba(255,255,255,0.5) !important;
+		}
+		header.is-transparent .navbar-toggler-icon {
+			filter: invert(1) grayscale(100%) brightness(200%);
+		}
+		
+		/* Ensure Hero Section offsets the absolute header if needed */
+		header.is-transparent + section.hero-section {
+			padding-top: calc(var(--navbar-height) + 60px);
+		}
+
+		/* Reset when sticky */
+		header.is-transparent .site-main-nav.sticky-top.is-sticky {
+			background-color: var(--page-background-color) !important;
+			box-shadow: 0 0 20px rgba(0,0,0,0.15) !important;
+		}
+		header.is-transparent .site-main-nav.sticky-top.is-sticky .nav-link,
+		header.is-transparent .site-main-nav.sticky-top.is-sticky .navbar-brand {
+			color: var(--navi-color) !important;
+		}
+	</style>
+	<?php
 }
 add_action( 'wp_head', 'archie_rombo_dynamic_css' );
 
@@ -283,6 +530,7 @@ function archie_rombo_register_scripts() {
 	wp_register_script( 'bootstrap-bundle', get_template_directory_uri() . '/js/bootstrap.bundle.min.js', array(), '5.3.2', true ); // BS5 doesn't depend on jQuery
 	wp_register_script( 'lazyload', get_template_directory_uri() . '/js/lazyload.js', array(), '2.0.0-rc.2', true );
 	wp_register_script( 'searchscript', get_template_directory_uri() . '/js/search-script.js', array(), '', true );
+	wp_register_script( 'theme-scripts', get_template_directory_uri() . '/js/theme-scripts.js', array('jquery'), '1.0.0', true );
 
 	wp_enqueue_script( 'modernizr-custom-js' );
 	wp_enqueue_script( 'classie' );
@@ -291,6 +539,7 @@ function archie_rombo_register_scripts() {
 	wp_enqueue_script( 'bootstrap-bundle' );
 	wp_enqueue_script( 'lazyload' );
 	wp_enqueue_script( 'searchscript' );
+	wp_enqueue_script( 'theme-scripts' );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -461,6 +710,9 @@ function archie_rombo_customize_partial_blogdescription() {
 
 // Include Theme Dashboard
 require get_template_directory() . '/includes/theme-dashboard.php';
+
+// Include Meta Boxes
+require get_template_directory() . '/includes/meta-boxes.php';
 
 add_filter( 'wp_title', 'archie_rombo_custom_titles', 10, 2 );
 function archie_rombo_custom_titles( $title, $sep ) {

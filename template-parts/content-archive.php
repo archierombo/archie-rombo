@@ -22,7 +22,7 @@
 				<h2 class="entry-title mb-1"><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
 				
 				<div class="entry-content entry-excerpt clearfix" style="text-align: justify;"><?php the_excerpt(); ?>
-				<a class="more-link" href="<?php the_permalink();?>">Read more &rarr;</a>
+				<a class="more-link" href="<?php the_permalink();?>"><?php echo esc_html(get_option('archie_rombo_read_more_text', 'Read More')); ?> &rarr;</a>
 				</div>
 			</div>
 		</div>

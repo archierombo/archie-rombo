@@ -37,7 +37,10 @@
       </div>
     </div>
     <!-- Search Modal -->
-    <header class="<?php echo get_option('archie_rombo_fixed_header') ? 'fixed-top' : ''; ?>">
+    <?php 
+    $is_transparent = (is_front_page() && get_option('archie_rombo_transparent_header', 0)) ? 'is-transparent' : '';
+    ?>
+    <header class="<?php echo esc_attr($is_transparent); ?>">
       <div class="container-fluid top-bar 
         <?php
           if (is_user_logged_in()) {
@@ -79,7 +82,7 @@
         </div><!--WordPress Login & Registeration Link-->
       </div>
     </div><!--Top bar-->
-    <nav class="site-main-nav navbar navbar-expand-lg bg-body-tertiary " style="box-shadow: 0 0 20px rgba(0,0,0,0.15);">
+    <nav class="site-main-nav navbar navbar-expand-lg bg-body-tertiary <?php echo get_option('archie_rombo_fixed_header') ? 'sticky-top' : ''; ?>" style="box-shadow: 0 0 20px rgba(0,0,0,0.15);">
       <div class="container-fluid">
         <a class="navbar-brand" href="<?php echo get_home_url('/'); ?>">
       	   <?php
@@ -148,4 +151,24 @@
   </div>
 </nav>
 </header>
+<?php 
+$header_bg_id = get_option('archie_rombo_header_bg');
+$header_bg_url = $header_bg_id ? wp_get_attachment_image_url($header_bg_id, 'full') : '';
+?>
+<section class="hero-section text-center text-white" style="<?php echo $header_bg_url ? 'background-image: url(' . esc_url($header_bg_url) . ');' : ''; ?>">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative">
+        <h1 class="display-4 fw-bold hero-title"><?php 
+            if (is_front_page()) {
+                bloginfo('description');
+            } elseif (is_archive()) {
+                the_archive_title();
+            } elseif (is_search()) {
+                printf( esc_html__( 'Search Results for: %s', 'archie-rombo' ), '<span>' . get_search_query() . '</span>' );
+            } else {
+                echo get_the_title();
+            }
+        ?></h1>
+    </div>
+</section>
 <?php //the_title(); ?>
